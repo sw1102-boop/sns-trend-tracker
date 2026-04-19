@@ -3,21 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SNS 트렌드 트래커 · 2026년 04월 19일 14:04</title>
+<title>SNS 트렌드 트래커 · 2026년 04월 19일 14:19</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;background:#f4f4f0;color:#1a1a1a;font-size:14px}
-.header{background:#fff;border-bottom:1px solid #e0e0dc;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.header{background:#fff;border-bottom:1px solid #e0e0dc;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:8px}
 .logo{font-size:15px;font-weight:600}
-.badge{font-size:11px;background:#e8f4fd;color:#1a6fa8;padding:2px 8px;border-radius:10px;margin-right:6px}
+.badges{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.badge{font-size:11px;padding:2px 8px;border-radius:10px}
+.badge-auto{background:#e6f4ea;color:#1e7e34}
+.badge-naver{background:#e8f4fd;color:#1a6fa8}
 .date{font-size:12px;color:#999}
-.tab-bar{background:#fff;border-bottom:1px solid #e0e0dc;padding:0 20px;display:flex}
+.tab-bar{background:#fff;border-bottom:1px solid #e0e0dc;padding:0 20px;display:flex;overflow-x:auto}
 .tab{padding:11px 14px;font-size:13px;color:#999;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
 .tab.active{color:#1a1a1a;border-bottom-color:#1a1a1a;font-weight:500}
 .wrap{max-width:900px;margin:0 auto;padding:18px 14px}
 .tc{display:none}.tc.active{display:block}
 .sec-label{font-size:11px;font-weight:600;color:#aaa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.auto-banner{background:#e6f4ea;border:1px solid #a8d5b0;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#1e5631;line-height:1.6}
 .cat-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .cat-tab{font-size:12px;padding:4px 12px;border-radius:20px;border:1px solid #ddd;color:#666;cursor:pointer;transition:all .15s}
 .cat-tab.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
@@ -31,22 +35,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
 .kw-meta{display:flex;justify-content:space-between}
 .kw-val{font-size:12px;color:#999}
 .chart-box{background:#fff;border:1px solid #e5e5e0;border-radius:12px;padding:18px;margin-bottom:14px}
-.chart-box h3{font-size:13px;font-weight:500;margin-bottom:14px;color:#444}
+.chart-box h3{font-size:13px;font-weight:500;margin-bottom:4px;color:#444}
+.chart-sub{font-size:11px;color:#999;margin-bottom:14px}
 .blog-card{background:#f8f8f5;border-radius:8px;padding:12px;margin-bottom:8px;cursor:pointer;transition:background .15s}
 .blog-card:hover{background:#eeeee8}
 .blog-ttl{font-size:13px;font-weight:500;margin-bottom:3px;line-height:1.4}
 .blog-desc{font-size:12px;color:#777;line-height:1.5;margin-bottom:3px}
 .blog-date{font-size:11px;color:#bbb}
-.alert{background:#fffbec;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#92400e;line-height:1.6}
+.empty{font-size:13px;color:#bbb;padding:20px;text-align:center}
 @media(max-width:600px){.kw-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="header">
   <div class="logo">📊 SNS 트렌드 트래커</div>
-  <div>
-    <span class="badge">네이버 데이터랩</span>
-    <span class="date">업데이트 2026년 04월 19일 14:04</span>
+  <div class="badges">
+    <span class="badge badge-auto">🤖 키워드 자동 발굴</span>
+    <span class="badge badge-naver">네이버 쇼핑인사이트</span>
+    <span class="date">업데이트 2026년 04월 19일 14:19</span>
   </div>
 </div>
 <div class="tab-bar">
@@ -55,18 +61,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
   <div class="tab" onclick="showTab('blog',this)">블로그 모니터링</div>
   <div class="tab" onclick="showTab('news',this)">뉴스 동향</div>
 </div>
+
 <div class="wrap">
   <div id="tab-trend" class="tc active">
-    <div class="alert">
-      네이버 데이터랩 기준 · 최근 28일 모바일 검색 트렌드 반영<br>
-      키워드 카드 클릭 시 관련 블로그 포스팅 확인 가능
+    <div class="auto-banner">
+      🤖 <strong>키워드 자동 발굴</strong> — 네이버 쇼핑인사이트 기준 최근 7일 인기 검색어를 자동 수집했습니다<br>
+      디저트: 두바이초콜릿 · 크루아상타르트 · 바스크치즈케이크 · 마카롱 · 생크림빵<br>
+      패션: 테니스코어 · 미니멀룩 · Y2K패션 · 고프코어 · 세미포멀
     </div>
     <div class="cat-tabs">
-      <div class="cat-tab active" onclick="switchCat('d',this)">디저트</div>
-      <div class="cat-tab" onclick="switchCat('f',this)">패션</div>
+      <div class="cat-tab active" onclick="switchCat('d',this)">디저트/식품</div>
+      <div class="cat-tab" onclick="switchCat('f',this)">패션의류</div>
     </div>
     <div id="cat-d">
-      <div class="sec-label">디저트 트렌드 키워드</div>
+      <div class="sec-label">디저트/식품 인기 키워드 (자동 발굴)</div>
       <div class="kw-grid">
       <div class="kw-card" onclick="goToBlog('마카롱')">
         <div class="kw-rank">1위</div>
@@ -103,10 +111,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
           <span class="kw-val">지수 2.3</span>
           <span style="font-size:12px;color:#7f8c8d;">-0.5</span>
         </div>
+      </div>
+      <div class="kw-card" onclick="goToBlog('크루아상타르트')">
+        <div class="kw-rank">5위</div>
+        <div class="kw-name">크루아상타르트</div>
+        <div class="kw-bar-bg"><div class="kw-bar" style="width:0%;background:#27ae60"></div></div>
+        <div class="kw-meta">
+          <span class="kw-val">지수 0.0</span>
+          <span style="font-size:12px;color:#c0392b;">+0.0</span>
+        </div>
       </div></div>
     </div>
     <div id="cat-f" style="display:none">
-      <div class="sec-label">패션 트렌드 키워드</div>
+      <div class="sec-label">패션의류 인기 키워드 (자동 발굴)</div>
       <div class="kw-grid">
       <div class="kw-card" onclick="goToBlog('고프코어')">
         <div class="kw-rank">1위</div>
@@ -143,40 +160,59 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
           <span class="kw-val">지수 8.0</span>
           <span style="font-size:12px;color:#7f8c8d;">-0.3</span>
         </div>
+      </div>
+      <div class="kw-card" onclick="goToBlog('테니스코어')">
+        <div class="kw-rank">5위</div>
+        <div class="kw-name">테니스코어</div>
+        <div class="kw-bar-bg"><div class="kw-bar" style="width:0%;background:#27ae60"></div></div>
+        <div class="kw-meta">
+          <span class="kw-val">지수 0.0</span>
+          <span style="font-size:12px;color:#c0392b;">+0.0</span>
+        </div>
       </div></div>
     </div>
   </div>
+
   <div id="tab-chart" class="tc">
-    <div class="chart-box"><h3>디저트 키워드 트렌드 (최근 4주)</h3><canvas id="dc" height="180"></canvas></div>
-    <div class="chart-box"><h3>패션 키워드 트렌드 (최근 4주)</h3><canvas id="fc" height="180"></canvas></div>
+    <div class="chart-box">
+      <h3>디저트/식품 트렌드 (최근 4주)</h3>
+      <div class="chart-sub">자동 발굴 키워드: 두바이초콜릿 · 크루아상타르트 · 바스크치즈케이크 · 마카롱 · 생크림빵</div>
+      <canvas id="dc" height="180"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>패션의류 트렌드 (최근 4주)</h3>
+      <div class="chart-sub">자동 발굴 키워드: 테니스코어 · 미니멀룩 · Y2K패션 · 고프코어 · 세미포멀</div>
+      <canvas id="fc" height="180"></canvas>
+    </div>
   </div>
+
   <div id="tab-blog" class="tc">
     <div class="sec-label">키워드별 최신 블로그 포스팅</div>
-    <div class="cat-tabs"><div class="cat-tab active" onclick="switchBlog('두바이초콜릿',this)">두바이초콜릿</div><div class="cat-tab " onclick="switchBlog('크루아상타르트',this)">크루아상타르트</div><div class="cat-tab " onclick="switchBlog('테니스코어',this)">테니스코어</div><div class="cat-tab " onclick="switchBlog('미니멀룩',this)">미니멀룩</div><div class="cat-tab " onclick="switchBlog('현대백화점팝업',this)">현대백화점팝업</div><div class="cat-tab " onclick="switchBlog('신세계백화점팝업',this)">신세계백화점팝업</div></div>
+    <div class="cat-tabs"><div class="cat-tab active" onclick="switchBlog('두바이초콜릿',this)">두바이초콜릿</div><div class="cat-tab " onclick="switchBlog('크루아상타르트',this)">크루아상타르트</div><div class="cat-tab " onclick="switchBlog('바스크치즈케이크',this)">바스크치즈케이크</div><div class="cat-tab " onclick="switchBlog('테니스코어',this)">테니스코어</div><div class="cat-tab " onclick="switchBlog('미니멀룩',this)">미니멀룩</div><div class="cat-tab " onclick="switchBlog('현대백화점팝업',this)">현대백화점팝업</div><div class="cat-tab " onclick="switchBlog('신세계백화점팝업',this)">신세계백화점팝업</div></div>
     <div class="blog-sec" id="blog-두바이초콜릿" >
-      <div class="blog-card" onclick="window.open('https://blog.naver.com/hna196/224258030359','_blank')">
-        <div class="blog-ttl">26년 4월 - 3</div>
-        <div class="blog-desc">크림코르네랑 두바이 초콜릿 소라빵 샀음 화이트초콜릿이 많이 들어갔는지 엄청 달다 카다이프는 좀 적은 느낌이었지만 크림도 꽉 차있고 맛있었음 근데 소라빵은 빵이 원…</div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/daeun_1995/224258042275','_blank')">
+        <div class="blog-ttl">[제주도카페/애월카페] 천상의 맛 카이막 디저트 풀세트로 즐긴...</div>
+        <div class="blog-desc">두바이 카이막 초콜릿 1pcs 9.000원, 카이막 찹쌀떡 2pcs 8.000원에 판매하고 있었어요! 쇼케이스 안에 가득 진열된 카이막과 카이막우유들~ 매장을 구…</div>
         <div class="blog-date">2026.04.19</div>
       </div>
-      <div class="blog-card" onclick="window.open('https://blog.naver.com/iksuk/224258029564','_blank')">
-        <div class="blog-ttl">[남양주 디저트 1등] 3개월 기다림 끝에 만난 기적! 별내...</div>
-        <div class="blog-desc">AOP 인증 프랑스 발효 버터, 서울우유 생크림, 벨기에산 및 프랑스산 초콜릿 등 재료부터가 남달라요.... 시그니처 '두쫀쿠'와 대표 메뉴 이곳의 주인공은 단연…</div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/dbrgmltjs80/224258040484','_blank')">
+        <div class="blog-ttl">명장시대 (오산점)</div>
+        <div class="blog-desc">러스크 #초콜릿러스크 두바이 쫀득 쿠키 #두바이쫀득쿠키 나가사키 카스테라 #나가사키카스테라 미니 화이트롤 #화이트롤 인절미 크림롤 #인절미크림롤 초코롤 인가???…</div>
         <div class="blog-date">2026.04.19</div>
       </div>
-      <div class="blog-card" onclick="window.open('https://blog.naver.com/2tacy/224258027359','_blank')">
-        <div class="blog-ttl">두바이초코설빙 내돈내산 솔직후기 막차</div>
-        <div class="blog-desc">두바이초콜릿이 첫 시작이었고 버터떡도 맛있는데 일단 나는 피스타치오를 좋아해서 두바이를 제일 좋아하는 디저트로 꼽는다. 두바이초코설빙이 나왔고 평도 좋길래 기대에…</div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/ph_dite/224258039460','_blank')">
+        <div class="blog-ttl">배스킨라빈스 신상 두바이에서 온 엄마는 외계인, 바베바, 치즈...</div>
+        <div class="blog-desc">두바이 초콜릿 식감을 좋아하신다면 두바이에서 온 엄마는 외계인은 꼭 드셔보세요! 카다이프의 바삭함이 아이스크림이랑 너무 잘 어울려요. 상큼한 게 당긴다면 바베바 …</div>
         <div class="blog-date">2026.04.19</div>
       </div>
-      <div class="blog-card" onclick="window.open('https://blog.naver.com/notsul/224258022314','_blank')">
-        <div class="blog-ttl">건대 카페 마이디어버터하우스 휘낭시에 맛집</div>
-        <div class="blog-desc">두바이 휘낭시에는 반 개라도 한 입에 다 먹기가 쉽지 않을 정도로 큼직한데 촉촉하면서 밀도감 있는 휘낭시에에 빠작빠작하게 씹히는 카다이프, 풍부하게 고소한 피스타…</div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/coc700/224258036693','_blank')">
+        <div class="blog-ttl">2월 | prayer for you 안락하길 기도해드려요 | 이사•당근...</div>
+        <div class="blog-desc">커피 초콜릿이 ㄹㅇ 원두에 초콜릿 덮은 거였음 ㄹㅈㄷ 카페인 섭취. 몇 시에 잤더라..... 원두 카페인이... 동네 떡 맛집 알려주실 분,, 동네빵집 두바이 소…</div>
         <div class="blog-date">2026.04.19</div>
       </div>
-      <div class="blog-card" onclick="window.open('https://blog.naver.com/psm1373/224258017859','_blank')">
-        <div class="blog-ttl">강북구 송중동 두쫀쿠 맛집 추천 | 송중 두바이쫀득쿠키 배달...</div>
-        <div class="blog-desc">매장들은 초콜릿 코팅 작업에서도 세심한 주의를 기울입니다 너무 두껍게 입히면 쿠키의 식감이 죽고 너무 얇으면 두바이 초콜릿 특유의 묵직한 달콤함이 사라지기 때문에…</div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/1n_yo0n/224258033518','_blank')">
+        <div class="blog-ttl">⠀⠀⠀</div>
+        <div class="blog-desc">크리스피크림 두바이도넛 마시따ㅜㅜ 다들 꼬옥 먹어ㅜㅜ 대구 가는 기차에서 도넛 3 개 푸파 때리고..... 공부하러 상모 갔다가 가위바위보 간식 내기빵 이겨서 얻…</div>
         <div class="blog-date">2026.04.19</div>
       </div></div><div class="blog-sec" id="blog-크루아상타르트" style="display:none">
       <div class="blog-card" onclick="window.open('https://blog.naver.com/hp0210/224257923769','_blank')">
@@ -202,6 +238,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
       <div class="blog-card" onclick="window.open('https://blog.naver.com/happylifeforme/224257974807','_blank')">
         <div class="blog-ttl">대구 앞산카페 꽃분수대가 예쁜 빵맛집 오브도레 드 펌킨스</div>
         <div class="blog-desc">바삭한 크로와상, 약간 달콤한 소스에 톡톡 터지는 홀 머스타드, 채소의 산뜻함, 말랑하게 씹히는 햄, 부드럽고 고소한 버터의 조화가 좋습니다. 생각한 것보다 더 …</div>
+        <div class="blog-date">2026.04.19</div>
+      </div></div><div class="blog-sec" id="blog-바스크치즈케이크" style="display:none">
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/girinkirin/224258034928','_blank')">
+        <div class="blog-ttl">부산 해운대 카페_아기자기 감성의 루디구디</div>
+        <div class="blog-desc">딸기바스크치즈케이크(7600원)는 비주얼부터 합격…! 위에 올라간 딸기도 신선하고 , 바스크 특유의 꾸덕함이 제대로 살아있어서 디저트 좋아하시는 분들 취향 저격일…</div>
+        <div class="blog-date">2026.04.19</div>
+      </div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/caroleene/224258035065','_blank')">
+        <div class="blog-ttl">스타벅스 우베 바스크 치즈케이크 판매매장 확인방법...</div>
+        <div class="blog-desc">그냥 치즈향 약한 치즈케이크 같구나 싶습니다. 사실 또 사먹고 싶은맛은 아니에요 우연히 함께 발견한... #스타벅스신메뉴 #스타벅스우베 #우베바스크치즈케이크 #스…</div>
+        <div class="blog-date">2026.04.19</div>
+      </div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/woojoo90/224258031813','_blank')">
+        <div class="blog-ttl">[인천 청라국제도시 카페 추천] 스타벅스 인천청라DT점 (매장...</div>
+        <div class="blog-desc">넓은 매장들에서 쫀득 버터 바이트와 우베 바스크 치즈케이크를 만날 수 있네요. 매장은 2층도 있고 2층도 꽤 넓습니당~ 버터 쫀득 바이트는 한정 매장만 판매하는 …</div>
+        <div class="blog-date">2026.04.19</div>
+      </div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/loveandwork_/224258028117','_blank')">
+        <div class="blog-ttl">내돈내산 구의역 카페 추천, 셀카 잘 나오는 화이트 감성...</div>
+        <div class="blog-desc">12,000원 바스크 치즈케이크 5,800원 저희는 키위주스랑 블루베리 스무디를 주문했는데 둘 다 6,000원이었습니다! 직접 먹어본 음료 후기 키위주스는 마시자…</div>
+        <div class="blog-date">2026.04.19</div>
+      </div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/skdiaqlcsk/224258024731','_blank')">
+        <div class="blog-ttl">대구 범어동카페 추천 감성 좋은디저트맛집 비마이문 후기 ☕️</div>
+        <div class="blog-desc">생망고케이크 바스크치즈케이크,푸딩까지~ 케이크들까지 준비되어있어요! , 포토존 전신샷할수 있는 거울 액자,식물,스피커,시계 세심한 인테리어 소품들 너무예쁘당 아메…</div>
         <div class="blog-date">2026.04.19</div>
       </div></div><div class="blog-sec" id="blog-테니스코어" style="display:none">
       <div class="blog-card" onclick="window.open('https://blog.naver.com/t057ep0us1/224257558561','_blank')">
@@ -229,6 +290,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
         <div class="blog-desc">오늘은 테니스 라켓에 대해 예전부터 사랑받아온 명품 부터 현재 많이 팔리는 신제품까지 모두... 7 요넥스 브이코어 (VCORE) 24~28만 요넥스 특유의 아이…</div>
         <div class="blog-date">2026.04.19</div>
       </div></div><div class="blog-sec" id="blog-미니멀룩" style="display:none">
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/ggoma_1114/224258037317','_blank')">
+        <div class="blog-ttl">키작녀 데일리룩: 일본여행룩 모음 2벌로 돌려입기(편안하면서...</div>
+        <div class="blog-desc">좋았어요 #키작녀데일리룩 #155cm키작녀코디 #심플룩 #미니멀룩 #데일리룩 #봄코디 #심플코디 #꾸안꾸룩 #오늘의룩 #ootd #40대패션 #40대여자코디 #육…</div>
+        <div class="blog-date">2026.04.19</div>
+      </div>
       <div class="blog-card" onclick="window.open('https://blog.naver.com/skdud_vv/224258025145','_blank')">
         <div class="blog-ttl">고윤정 vs 손연재, 같은 재킷인데 분위기 왜 이렇게 달라?</div>
         <div class="blog-desc">단추를 모두 잠궈 자켓이 가진 실루엣 강조하면서 전체적으로 미니멀하게 연출했는데 덕분에... 데일리패션 #데일리룩 #꾸안꾸코디 #미니멀룩 #캐주얼룩 #여자패션추천…</div>
@@ -248,20 +314,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
         <div class="blog-ttl">흰티에 청바지만 입어도 예쁜 이유 (+코디 꿀팁)</div>
         <div class="blog-desc">안녕하세요 먼니먼니입니다! 흰티에 청바지, 누구나 한 번쯤 입어봤지만 왜 어떤 사람은 더 스타일리시해 보일까요? 오늘은 같은 조합인데도 다르게 보이는 코디 포인트…</div>
         <div class="blog-date">2026.04.19</div>
-      </div>
-      <div class="blog-card" onclick="window.open('https://blog.naver.com/mas1101/224258014036','_blank')">
-        <div class="blog-ttl">아페쎄 반팔티 COGWZH26342AAB, 가슴 위의 작은 A.P.C. 로고가...</div>
-        <div class="blog-desc">프렌치 미니멀리즘의 대명사, 아페쎄(A.P.C.)가 제안하는 '카터' 폴로 셔츠. 군더더기 없는 화이트... 화이트카라티 #남자카라티추천 #미니멀룩 #프렌치시크 …</div>
-        <div class="blog-date">2026.04.19</div>
       </div></div><div class="blog-sec" id="blog-현대백화점팝업" style="display:none">
-      <div class="blog-card" onclick="window.open('https://blog.naver.com/sujinyaejin/224258023757','_blank')">
-        <div class="blog-ttl">판교 현대백화점 디저트 치즈케이크 맛집 골든 팥 치즈케이크...</div>
-        <div class="blog-desc">요즘 판교현대백화점에 맛있는 디저트 팝업 많이 들어오고 있는데 그 중에서 가장 마음에 들었던... 괜히 백화점 퀄리티 치즈케이크가 아님! 커피랑 마셔도 너무 좋겠…</div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/hcuteh/224258035994','_blank')">
+        <div class="blog-ttl">[보따리제과점 버터떡 팝업] 현대백화점 무역센터점 버터떡</div>
+        <div class="blog-desc">버터라 달달한데 연유까지 ~ 친구가 다른 베이커리 가게에서 사온 버터떡 한번은 먹어볼만한 달달한 버터떡 현대백화점 무역센터점 팝업 갓구운빵공장 기간별로 계속 운영…</div>
         <div class="blog-date">2026.04.19</div>
       </div>
       <div class="blog-card" onclick="window.open('https://blog.naver.com/wud42424/224258023785','_blank')">
         <div class="blog-ttl">갓구운 빵공장 현대백화점 무역센터점 팝업 - 내돈내산 가격...</div>
         <div class="blog-desc">갓구운 빵공장 팝업 - 현대백화점 무역센터 서울 강남구 테헤란로 517 , 지하1층 팝업 지하1층 팝업에 위치한 갓구운 빵공장. 팝업 매장인데, 푸드코트 테이블 …</div>
+        <div class="blog-date">2026.04.19</div>
+      </div>
+      <div class="blog-card" onclick="window.open('https://blog.naver.com/sujinyaejin/224258023757','_blank')">
+        <div class="blog-ttl">판교 현대백화점 디저트 치즈케이크 맛집 골든 팥 치즈케이크...</div>
+        <div class="blog-desc">요즘 판교현대백화점에 맛있는 디저트 팝업 많이 들어오고 있는데 그 중에서 가장 마음에 들었던... 괜히 백화점 퀄리티 치즈케이크가 아님! 커피랑 마셔도 너무 좋겠…</div>
         <div class="blog-date">2026.04.19</div>
       </div>
       <div class="blog-card" onclick="window.open('https://blog.naver.com/einana/224258020895','_blank')">
@@ -272,11 +338,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
       <div class="blog-card" onclick="window.open('https://blog.naver.com/iamkgr0419/224258001353','_blank')">
         <div class="blog-ttl">260419</div>
         <div class="blog-desc">다먹고 주변에 잇는 현대백화점가서 구경을햇어요! 해리포터 팝업이 잇어서 갓능데 딱히 살만한건 없어서 그냥 내려가서 공차를 사머것어요!! 그리고 엄마한테 꽃 선물도…</div>
-        <div class="blog-date">2026.04.19</div>
-      </div>
-      <div class="blog-card" onclick="window.open('https://blog.naver.com/saudineom/224257985939','_blank')">
-        <div class="blog-ttl">무랄리아 올리브오일과 타쿠미야(TAKUMIYA) 식빵</div>
-        <div class="blog-desc">전통적인 석조 압착 방식을 유지하면서도 현대적인 품질 관리를 통해 산도가 낮고 풍미가 깊은... 매장 위치: 서울 공덕 본점을 중심으로 현대백화점 등 주요 백화점…</div>
         <div class="blog-date">2026.04.19</div>
       </div></div><div class="blog-sec" id="blog-신세계백화점팝업" style="display:none">
       <div class="blog-card" onclick="window.open('https://blog.naver.com/happy70025/224258007116','_blank')">
@@ -305,9 +366,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
         <div class="blog-date">2026.04.19</div>
       </div></div>
   </div>
+
   <div id="tab-news" class="tc">
     <div class="sec-label">최신 뉴스</div>
     
+      <div class="blog-card" onclick="window.open('https://n.news.naver.com/mnews/article/022/0004122053?sid=101','_blank')">
+        <div class="blog-ttl">‘클라우드 크러시’ 맛 보세요</div>
+        <div class="blog-date">www.segye.com · Sun, 19 Apr 2026</div>
+      </div>
       <div class="blog-card" onclick="window.open('http://www.apparelnews.co.kr/news/news_view/?idx=224735','_blank')">
         <div class="blog-ttl">샌드사운드, 성수 팝업 열고 2030 접점 키우기</div>
         <div class="blog-date">www.apparelnews.co.kr · Sun, 19 Apr 2026</div>
@@ -319,10 +385,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
       <div class="blog-card" onclick="window.open('https://www.ksmnews.co.kr/news/view.php?idx=601100','_blank')">
         <div class="blog-ttl">사유원, 더현대 대구 ‘웰니스‧문화 콘텐츠 협업 본격화’ MOU 체결</div>
         <div class="blog-date">www.ksmnews.co.kr · Sun, 19 Apr 2026</div>
-      </div>
-      <div class="blog-card" onclick="window.open('https://www.hidomin.com/news/articleView.html?idxno=702011','_blank')">
-        <div class="blog-ttl">더현대 대구·사유원, 지역 문화예술 활성화 '맞손'</div>
-        <div class="blog-date">www.hidomin.com · Sun, 19 Apr 2026</div>
       </div>
       <div class="blog-card" onclick="window.open('https://n.news.naver.com/mnews/article/015/0005276781?sid=103','_blank')">
         <div class="blog-ttl">김치찌개 두그릇 보다 비싼데…빵 한 조각 먹으러 '오픈런'</div>
@@ -358,6 +420,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;back
       </div>
   </div>
 </div>
+
 <script>
 const dessertData={"\ub450\ubc14\uc774\ucd08\ucf5c\ub9bf": [89.67061, 60.79051, 49.85507, 48.86693, 34.99341], "\ud06c\ub8e8\uc544\uc0c1\ud0c0\ub974\ud2b8": [], "\ubc14\uc2a4\ud06c\uce58\uc988\ucf00\uc774\ud06c": [69.88142, 64.4137, 93.84716, 79.92094, 59.36758], "\ub9c8\uce74\ub871": [90.79051, 84.29512, 100, 86.71936, 66.87747], "\uc0dd\ud06c\ub9bc\ube75": [3.22793, 2.60869, 3.10935, 2.76679, 2.25296]};
 const fashionData={"\ud14c\ub2c8\uc2a4\ucf54\uc5b4": [], "\ubbf8\ub2c8\uba40\ub8e9": [13.96226, 15.94339, 16.98113, 15.28301, 11.79245], "Y2K\ud328\uc158": [12.16981, 12.07547, 12.92452, 12.16981, 12.45283], "\uace0\ud504\ucf54\uc5b4": [100, 93.01886, 81.50943, 84.33962, 64.24528], "\uc138\ubbf8\ud3ec\uba40": [2.45283, 5.66037, 7.6415, 8.30188, 8.01886]};
